@@ -1,13 +1,17 @@
 import React from 'react';
 import './Login.css';
 import axios from "axios";
+import { Redirect, Link } from 'react-router-dom';
+import '../After_Login/Result'
 
 export default class Login extends React.Component {
 constructor(props){
     super(props);
     this.state={
       username: '',
-      password:''
+      password:'',
+      result: false,
+      value:''
     }
     this.handleEvent = this.handleEvent.bind(this);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -23,20 +27,26 @@ handlePasswordChange(){
 }
 
 handleEvent(){  
-  console.log(this.state)
 const response =axios.post(
   'http://localhost:5000/login',this.state
-).then((res) => {
-  console.log(res.data)
+).then((res) => { 
+  if(res.data=="Login Successful")
+  {
+  this.setState({result: true});
+  }
+  else{
+    this.setState({value: res.data})
+  }
 }).catch((error) => {
   console.log(error)
 });
-
-
 }
 
 render()
 {
+  if(this.state.result)
+  {
+    return <Redirect to='/Result' />}
     return(
     <div className="Login-Header">
     <div className="Login">
@@ -49,7 +59,10 @@ render()
         </table>
         <input  type="button" value="login" onClick={this.handleEvent}></input>
       </form>
+    <h1>{this.state.value}</h1>
     </div>
     </div>);
+    
+     
 }
 }

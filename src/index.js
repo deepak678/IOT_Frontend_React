@@ -7,7 +7,7 @@ import Login from './Login_Page/Login';
 import Notfound from './Notfound'
 import Result from './After_Login/Result';
 import {Route,Link,BrowserRouter as Router} from 'react-router-dom'
-
+import Register from './Registration/Register'
 
 const routing = (
     <Router>
@@ -15,6 +15,7 @@ const routing = (
         <Route exact path="/" component={App} />
         <Route path="/Login" component={Login} />
         <Route path="/Result" component={Result} />
+        <Route path="/Register" component={Register} />
       </div>
     </Router>
   )
